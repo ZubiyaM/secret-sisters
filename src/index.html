@@ -36,11 +36,13 @@
             }
 
 
+            localStorage.setItem("secretSisterPairs", JSON.stringify(pairs));
+
             let linksDiv = document.getElementById("links");
             linksDiv.innerHTML = "<h3>Share these links:</h3>";
 
             Object.keys(pairs).forEach(name => {
-                let link = `${window.location.origin}/reveal.html?name=${encodeURIComponent(name)}&sister=${encodeURIComponent(pairs[name])}`;
+                let link = `${window.location.origin}/reveal.html?name=${encodeURIComponent(name)}`;
                 linksDiv.innerHTML += `<p>${name}: <a href="${link}" target="_blank">${link}</a></p>`;
             });
 

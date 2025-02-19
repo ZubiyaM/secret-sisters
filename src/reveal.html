@@ -16,12 +16,11 @@
         document.addEventListener("DOMContentLoaded", function () {
             const urlParams = new URLSearchParams(window.location.search);
             const name = urlParams.get("name");
-            const santa = urlParams.get("sister");
 
-            if (name && santa) {
-                document.getElementById("result").innerText = `${name}, your Secret Sister is: ${santa} `;
-            } else {
-                document.getElementById("result").innerText = "Invalid or missing link.";
+            const pairs = JSON.parse(localStorage.getItem("secretSisterPairs"));
+
+            if (pairs && pairs[name]) {
+                document.getElementById("result").innerText = `${name}, your Secret Sister is: ${pairs[name]} !`;
             }
         });
     </script>
