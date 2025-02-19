@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Secret Sister Generator</title>
+    <style>
+        body { font-family: Arial, sans-serif; text-align: center; padding: 20px; }
+        textarea, button { margin: 10px; padding: 10px; width: 300px; }
+        #links { margin-top: 20px; }
+    </style>
+</head>
+<body>
+    <h2>Secret Sister Generator </h2>
+    <textarea id="names" placeholder="Enter names, one per line"></textarea><br>
+    <button id="generate-btn">Generate Secret Santa!!</button>
+    <div id="links"></div>
+
+    <script>
+        document.getElementById("generate-btn").addEventListener("click", function () {
+            const namesInput = document.getElementById("names").value.trim();
+            if (!namesInput) return alert("Please enter at least two names.");
+
+            let names = namesInput.split("\n").map(name => name).filter(name => name);
+            if (names.length < 2) return alert("Need at least two participants!");
+
+            let shuffled = [...names];
+            for (let i = shuffled.length - 1; i > 0; i--) {
+                let j = Math.floor(Math.random() * (i + 1));
+                [shuffled[i], shuffled[j]] = [shuffled[j], shuffled[i]];
+            }
+
+            let pairs = {};
+            for (let i = 0; i < names.length; i++) {
+                pairs[names[i]] = shuffled[(i + 1) % names.length];
+            }
+
+
+            let linksDiv = document.getElementById("links");
+            linksDiv.innerHTML = "<h3>Share these links:</h3>";
+
+            Object.keys(pairs).forEach(name => {
+                let link = `${window.location.origin}/reveal.html?name=${encodeURIComponent(name)}&sister=${encodeURIComponent(pairs[name])}`;
+                linksDiv.innerHTML += `<p>${name}: <a href="${link}" target="_blank">${link}</a></p>`;
+            });
+
+            alert("Secret Sister pairs generated successfully!");
+        });
+    </script>
+</body>
+</html>

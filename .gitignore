@@ -2,8 +2,7 @@ node_modules/
 package-lock.json
 
 # Firebase-related files
-.firebase/
-firebase-debug.log
+
 
 # VS Code settings
 .vscode/
@@ -11,4 +10,3 @@ firebase-debug.log
 # System files
 Thumbs.db
 
-.env
